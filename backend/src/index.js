@@ -21,18 +21,9 @@ app.use(cors({
     credentials: true
 }));
 
-
-
-server.listen(PORT, ()=> {
-    console.log("Server is running on PORT:"+ PORT);
-    connectDB();
-})
-
+// Register routes before starting server
 app.use("/api/auth", authRoutes);
-app.use("/api/messages", messageRoutes); 
-
-
-
+app.use("/api/messages", messageRoutes);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
@@ -41,3 +32,8 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
   });
 }
+
+server.listen(PORT, ()=> {
+    console.log("Server is running on PORT:"+ PORT);
+    connectDB();
+})
